@@ -396,7 +396,7 @@ _G.SLASH_SET_KEYSTONE_ADDITIONAL_LEVEL1 = '/skal'
 function Mod:SendCurrentKeystone()
 	local keystoneMapID = C_MythicPlus.GetOwnedKeystoneChallengeMapID()
 	local keystoneLevel = C_MythicPlus.GetOwnedKeystoneLevel()
-	
+	keystoneLevel =  keystoneLevel + (_G._KEYSTONE_ADDITIONAL_LEVEL or 0)
 	local message = "0"
 	if keystoneLevel and keystoneMapID then
 		message = string.format("%d:%d", keystoneMapID, keystoneLevel)
