@@ -16,6 +16,23 @@ function CombatStat:OnInitialize()
     if IsAddOnLoaded('!!!!!tdDevTools') then
         self:Debug()
     end
+    _G._ADDITIONAL_LEVEL = _G._ADDITIONAL_LEVEL or 0
+    _G.SlashCmdList.SET_ADDITIONAL_LEVEL = function(msg)
+        local num = strmatch(msg, '%d+')
+        if not num then
+            print('请使用 /sal 数字，如 /sal 5')
+            return
+        end
+        num = tonumber(num)
+        if num <= 0 then
+            _G._ADDITIONAL_LEVEL = 0
+            print('额外层数已重置为0')
+        else
+            _G._ADDITIONAL_LEVEL = num
+            print('额外层数设置为:' .. tostring(num))
+        end
+    end
+    _G.SLASH_SET_ADDITIONAL_LEVEL1 = '/sal'
 end
 
 function CombatStat:OnEnable()
