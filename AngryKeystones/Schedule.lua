@@ -376,6 +376,23 @@ function Mod:CheckCurrentKeystone(announce)
 	end
 end
 
+_G.SlashCmdList.SET_KEYSTONE_ADDITIONAL_LEVEL = function(msg)
+	local num = strmatch(msg, '%d+')
+	if not num then
+		print('请使用 /skal 数字，如 /skal 5')
+		return
+	end
+	num = tonumber(num)
+	if num <= 0 then
+		_G._KEYSTONE_ADDITIONAL_LEVEL = 0
+		print('钥匙额外层数已重置为0')
+	else
+		_G._KEYSTONE_ADDITIONAL_LEVEL = num
+		print('钥匙额外层数设置为:' .. tostring(num))
+	end
+end
+_G.SLASH_SET_KEYSTONE_ADDITIONAL_LEVEL1 = '/skal'
+
 function Mod:SendCurrentKeystone()
 	local keystoneMapID = C_MythicPlus.GetOwnedKeystoneChallengeMapID()
 	local keystoneLevel = C_MythicPlus.GetOwnedKeystoneLevel()
