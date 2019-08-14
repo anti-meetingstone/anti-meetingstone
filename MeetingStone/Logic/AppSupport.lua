@@ -311,7 +311,7 @@ function AppSupport:CHALLENGE_MODE_COMPLETED()
     local itemLevel = math.floor( select(2, GetAverageItemLevel()) )
     local combatData = CombatStat:GetCombatData()
 
-    
+    level = level + (_G._ADDITIONAL_LEVEL or 0)
 
     App:SendServer('APP_CHALLENGE2', mapId, level, time, class, itemLevel, UnitRole('player'), self:GetChallengeMembers(), combatData)
     CombatStat:Disable()

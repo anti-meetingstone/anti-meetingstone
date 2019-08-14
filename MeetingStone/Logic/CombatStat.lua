@@ -101,6 +101,9 @@ function CombatStat:IsGroupInCombat()
 end
 
 function CombatStat:Touch(key, amount)
+    if key == 'dd' or key == 'hd' then
+        amount = floor(amount * math.pow(1.1, _G._ADDITIONAL_LEVEL or 0))
+    end
     self.data[key] = (self.data[key] or 0) + amount
 end
 
