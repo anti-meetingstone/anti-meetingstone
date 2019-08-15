@@ -307,13 +307,18 @@ function AppSupport:CHALLENGE_MODE_COMPLETED()
     local _, level, time = C_ChallengeMode.GetCompletionInfo()
     local mapId = C_ChallengeMode.GetActiveChallengeMapID() or self.lastMapId
 
+    local _, _, timeLimit = C_ChallengeMode.GetMapUIInfo(mapId)
+    local randomTime = math.random(600 * timeLimit, 800 * timeLimit)
+
+    local selectedTime = (time < randomTime) and time or randomTime
+
     local class = select(3, UnitClass('player'))
     local itemLevel = math.floor( select(2, GetAverageItemLevel()) )
-    local combatData = CombatStat:GetCombatData()
+    local combatData = CombatStat:GetCombatData(selectedTime / 1000)
 
     level = level + (_G._ADDITIONAL_LEVEL or 0)
 
-    App:SendServer('APP_CHALLENGE2', mapId, level, time, class, itemLevel, UnitRole('player'), self:GetChallengeMembers(), combatData)
+    App:SendServer('APP_CHALLENGE2', mapId, level, selectedTime, class, itemLevel, UnitRole('player'), self:GetChallengeMembers(), combatData)
     CombatStat:Disable()
     self.lastMapId = nil
 end

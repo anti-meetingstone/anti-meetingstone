@@ -217,8 +217,9 @@ function CombatStat:IsUnitFriend(guid)
     return self.groupUnits[guid] or self.units[guid]
 end
 
-function CombatStat:GetCombatData()
+function CombatStat:GetCombatData(ct)
     local time = self.data.time == 0 and 0xFFFFFFFF or self.data.time
+    if ct then time = ct end
     return {
         dd = self.data.dd,
         dt = self.data.dt,
